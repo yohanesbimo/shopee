@@ -1,0 +1,70 @@
+<html>
+    <head>
+        <title>Today Currency</title>
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    </head>
+    <body>
+        <h1>Today Currency</h1>
+        <a href="http://localhost:8080">Track Exchange Rate</a>
+        <a href="http://localhost:8080/add-unit">Add Currency Unit</a>
+        <a href="http://localhost:8080/add-exchange">Add Exchange</a>
+        <a href="http://localhost:8080/delete-exchange">Delete Exchange</a>
+        <a href="http://localhost:8080/add-exchange-rate">Add Exchange Rate</a>
+        <table>
+            <thead>
+                <th>Type</th>
+                <th>Input</th>
+            </thead>
+            <tbody>
+                <form method="GET" action="http://localhost:8080/view-exchange-rate">
+                    <tr>
+                        <td>Date</td>
+                        <td><input type="text" name="date" id="date" /></td>
+                    </tr>
+                    <tr>
+                        <td colspan=2 align=right><button type=submit>Check</button></td>
+                    </tr>
+                </form>
+            </tbody>
+        </table>
+        {{if .ExchangeRate}}
+        <table border="1">
+            <thead>
+                <th>From</th>
+                <th>To</th>
+                <th>Rate</th>
+                <th>7-day Avg</th>
+            </thead>
+            <tbody>
+            {{range .ExchangeRate}}
+                <tr>
+                    <td>{{.UnitFrom}}</td>
+                    <td>{{.UnitTarget}}</td>
+                    <td>
+                    {{if .Rate}}
+                        {{.Rate}}
+                    {{else}}
+                        insufficient data
+                    {{end}}
+                    </td>
+                    <td>
+                        {{if .Rate}}
+                            {{.RateAvg}}
+                        {{else}}
+                            insufficient data
+                        {{end}}
+                    </td>
+                </tr>
+            {{end}}
+            </tbody>
+        </table>
+        {{end}}
+    </body>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script>
+        $( function() {
+            $( "#date" ).datepicker({ dateFormat: 'yy-mm-dd' });
+        });
+    </script>
+</html>

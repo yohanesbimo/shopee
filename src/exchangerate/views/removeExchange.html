@@ -1,0 +1,36 @@
+<html>
+    <head>
+        <title>Input Today Currency</title>
+    </head>
+    <body>
+        <h1>Today Currency</h1>
+        <a href="http://localhost:8080">Track Exchange Rate</a>
+        <a href="http://localhost:8080/add-unit">Add Currency Unit</a>
+        <a href="http://localhost:8080/add-exchange">Add Exchange</a>
+        <a href="http://localhost:8080/delete-exchange">Delete Exchange</a>
+        <a href="http://localhost:8080/add-exchange-rate">Add Exchange Rate</a>
+        <table>
+            <thead>
+                <th>Type</th>
+                <th>Input</th>
+            </thead>
+            <tbody>
+                <form method="POST" action="http://localhost:8080/action-delete-exchange">
+                <tr>
+                    <td>From</td>
+                    <td>
+                        <select id="id-exchange" name="id_exchange">
+                            <option value="">Choose Exchange</option>
+                        {{range .Exchange}}
+                            <option value="{{.ID}}">{{.Unit}}</option>
+                        {{end}}
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="=2" align="right"><button type="submit">Remove</button></td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

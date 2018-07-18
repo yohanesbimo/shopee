@@ -1,0 +1,76 @@
+<html>
+    <head>
+        <title>Input Today Currency</title>
+    </head>
+    <body>
+        <h1>Today Currency</h1>
+        <a href="http://localhost:8080">Track Exchange Rate</a>
+        <a href="http://localhost:8080/add-unit">Add Currency Unit</a>
+        <a href="http://localhost:8080/add-exchange">Add Exchange</a>
+        <a href="http://localhost:8080/delete-exchange">Delete Exchange</a>
+        <a href="http://localhost:8080/add-exchange-rate">Add Exchange Rate</a>
+        <table>
+            <thead>
+                <th>Type</th>
+                <th>Input</th>
+            </thead>
+            <tbody>
+                <form method="POST" action="http://localhost:8080/action-add-exchange">
+                <tr>
+                    <td>From</td>
+                    <td>
+                        <select id="unit-from" name="unit_from" onchange="get_unit()">
+                            <option value="">Choose Unit</option>
+                        {{range .Unit}}
+                            <option value="{{.ID}}">{{.Unit}}</option>
+                        {{end}}
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>To</td>
+                    <td>
+                        <select id="unit-to" name="unit_to">
+                            <option value="">Choose Unit</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="=2" align="right"><button type="submit">Add</button></td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+
+    <script>
+        function get_unit(){
+            var unit_to = document.getElementById("unit-to")
+            for (var i=0; i<unit_to.length; i++){
+                if (unit_to.options[i].value != "")
+                    unit_to.remove(i);
+            }
+            var http = new XMLHttpRequest();
+            var url = "http://localhost:8080/action-get-unit";
+            var params = "";
+            var unit_from = document.getElementById("unit-from").value;
+            if(unit_from != ""){
+                params = "exclude=" + unit_from;
+            }
+            http.open('POST', url, true);
+            http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            http.onreadystatechange = function() {
+                if(http.readyState == 4 && http.status == 200) {
+                    var unit = http.responseText;
+                    unit = JSON.parse(unit);
+                    for(var i=0; i<unit.length; i++){
+                        var option = document.createElement("option")
+                        option.text = unit[i].unit
+                        option.value = unit[i].id
+                        unit_to.appendChild(option)
+                    }
+                }
+            }
+            http.send(params);
+        }
+    </script>
+</html>

@@ -1,0 +1,9 @@
+How to test:
+1. Run application
+2. Open browser and type http://localhost:8080
+3. This address will open homepage with input date to check rate
+4. If there are no currency exchange you need to add currency unit at http://localhost:8080/add-unit
+5. After you add currency unit you need add currency exchange list at http://localhost:8080/add-exchange
+6. Until here we already have list currency exchange. So, just go to http://localhost:8080/add-exchange-rate to input exchange rate daily
+7. If you want to delete exchange list go to http://localhost:8080/remove-exchange
+8. And last, go to homepage to get report current rate and average of 7 days before input date

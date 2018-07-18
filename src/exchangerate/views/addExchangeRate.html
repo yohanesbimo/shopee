@@ -1,0 +1,53 @@
+<html>
+    <head>
+        <title>Input Today Currency</title>
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    </head>
+    <body>
+        <h1>Today Currency</h1>
+        <a href="http://localhost:8080">Track Exchange Rate</a>
+        <a href="http://localhost:8080/add-unit">Add Currency Unit</a>
+        <a href="http://localhost:8080/add-exchange">Add Exchange</a>
+        <a href="http://localhost:8080/delete-exchange">Delete Exchange</a>
+        <a href="http://localhost:8080/add-exchange-rate">Add Exchange Rate</a>
+        <table>
+            <thead>
+                <th>Type</th>
+                <th>Input</th>
+            </thead>
+            <tbody>
+                <form method="POST" action="http://localhost:8080/action-add-exchange-rate">
+                    <tr>
+                        <td>Date</td>
+                        <td><input type="text" name="date" id="date" /></td>
+                    </tr>
+                    <tr>
+                        <td>Exchange</td>
+                        <td>
+                            <select name="exchange" id="exchange">
+                                <option value="">Choose Exchange</option>
+                            {{range .Exchange}}
+                                <option value="{{.ID}}">{{.Unit}}</option>
+                            {{end}}
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Rate</td>
+                        <td><input type=number name="rate" id="rate" step=any /></td>
+                    </tr>
+                    <tr>
+                        <td colspan=2 align=right><button type=submit>Add</button></td>
+                    </tr>
+                </form>
+            </tbody>
+        </table>
+    </body>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script>
+        $( function() {
+            $( "#date" ).datepicker({ dateFormat: 'yy-mm-dd' });
+        });
+    </script>
+</html>

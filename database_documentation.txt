@@ -1,0 +1,9 @@
+1. Table Currency Unit
+	This table contains list all Currency in the trade/world
+2. Table Currency Exchange
+	This table contains list all Currency Exchange that listed on table Currency Unit. In this table there is status to check if the Exchange is not available anymore
+3. Table Currency
+	This table contains daily rate for each Currency Exchange on table Currency Exchange
+
+- Table Currency Exchange connected with table Currency Unit with relation 1 Currency Unit have many Currency Exchange
+- Table Currency connected with table Currency Exchange with relation 1 Currency Exchange have many Currency
